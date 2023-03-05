@@ -1,0 +1,2 @@
+
+COLOR: str = "Red"
