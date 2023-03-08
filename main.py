@@ -1,18 +1,21 @@
 import tkinter as tk
-import math
-
+from src.Frames.ButtonFrame.ButtonFrame import ButtonFrame
+from src.Settings.Settings import INITIAL_SIZE
 from src.Canvas.Canvas import PaintCanvas
 
 if __name__ == '__main__':
     root = tk.Tk()
     root.title("PaintProgramm")
-    cv = PaintCanvas(master=root,
-                     bg="White",
-                     size=15)
+    bf = ButtonFrame(master=root,
+                     initial_size=INITIAL_SIZE,
+                     paint_canvas=None)
 
+    cv = PaintCanvas(master=root, bg="White", size=INITIAL_SIZE)
+    bf.set_canvas(cv)
 
-    cv.pack()
-    tk.Button(master=root, text="clear", command=lambda: cv.clear_canvas()).pack()
-    tk.Button(master=root, text="undo", command=lambda: cv.undo_last_step()).pack()
-
+    bf.grid(row=0,
+            column=0)
+    cv.grid(row=1,
+            column=0,
+            sticky="NSWE")
     root.mainloop()

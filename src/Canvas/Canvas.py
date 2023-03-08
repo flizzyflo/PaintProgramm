@@ -10,6 +10,7 @@ class PaintCanvas(tk.Canvas):
         super().__init__(master=master,
                          bg=bg)
 
+        self.color = None
         self.set_new_color()
         self.size = size
         self.bind("<B1-Motion>", self.left_click)
@@ -23,7 +24,6 @@ class PaintCanvas(tk.Canvas):
         :return: No return value
         """
 
-        self.set_new_color()
         x1 = event.x - self.size
         x2 = event.x + self.size
         y1 = event.y - self.size
@@ -37,11 +37,18 @@ class PaintCanvas(tk.Canvas):
         last_element_created = self.stack.pop()
         self.delete(last_element_created)
 
-    def get_current_color(self) -> str:
+    @staticmethod
+    def get_current_color() -> str:
         return COLOR
 
-    def set_new_color(self) -> None:
-        self.color = self.get_current_color()
+    def set_new_color(self, color: str = None) -> None:
+
+        if color is None:
+            self.color = self.get_current_color()
+
+        else:
+            self.color = color
+
 
     def clear_canvas(self) -> None:
 
