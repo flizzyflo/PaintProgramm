@@ -1,29 +1,31 @@
 import tkinter as tk
 from src.Frames.ButtonFrame.ButtonFrame import ButtonFrame
-from src.Settings.Settings import INITIAL_SIZE, BACKGROUND_COLOR
+from src.Settings.Settings import INITIAL_SIZE, BACKGROUND_COLOR, BUTTON_FRAME_BORDER_SIZE, CANVAS_FRAME_BORDER_SIZE
 from src.Canvas.Canvas import PaintCanvas
+from src.Frames.CanvasFrame.CanvasFrame import CanvasFrame
 
 if __name__ == '__main__':
     root = tk.Tk()
-    root.title("My deluxe Paint-Programm")
+    root.title("My deluxe Paint-Program")
+
     bf = ButtonFrame(master=root,
                      initial_size=INITIAL_SIZE,
-                     paint_canvas=None)
+                     paint_canvas=None,
+                     relief="groove",
+                     borderwidth=BUTTON_FRAME_BORDER_SIZE)
+    bf.pack(fill=tk.X,
+            expand=True)
 
-    cv = PaintCanvas(master=root,
+    canvas_frame = CanvasFrame(master=root,
+                               relief="groove",
+                               borderwidth=CANVAS_FRAME_BORDER_SIZE)
+    canvas_frame.pack(fill=tk.X,
+                      expand=True)
+
+    cv = PaintCanvas(master=canvas_frame,
                      bg=BACKGROUND_COLOR,
                      size=INITIAL_SIZE)
     bf.set_canvas(cv)
-
-    bf.grid(row=0,
-            column=0)
-    cv.grid(row=1,
-            column=0,
-            sticky="NSWE")
-
-    print(cv.get_current_color())
-
-    print(cv.get_current_color())
-
+    cv.pack(fill=tk.X)
 
     root.mainloop()

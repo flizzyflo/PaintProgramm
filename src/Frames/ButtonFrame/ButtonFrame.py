@@ -14,14 +14,14 @@ class ButtonFrame(tk.Frame):
                                       command=lambda: self.paint_canvas.clear_canvas())
         self.clear_button.grid(row=0,
                                column=1,
-                               sticky="NSWE")
+                               sticky="NSEW")
 
         self.undo_button = tk.Button(master=self,
                                      text="Undo last step",
                                      command=lambda: self.paint_canvas.undo_last_step())
         self.undo_button.grid(row=0,
                               column=2,
-                              sticky="NSWE")
+                              sticky="NSEW")
 
         values = [str(value) for value in range(1, 21)]
         self.string_var = tk.StringVar(value=self.size)
@@ -31,14 +31,14 @@ class ButtonFrame(tk.Frame):
                                             command=lambda x: self.set_size_value())
         self.size_selection.grid(row=0,
                                  column=3,
-                                 sticky="NSWE")
+                                 sticky="NSEW")
 
         self.eraser = tk.Button(master=self,
                                 text="Eraser",
                                 command=lambda: self.select_color(color=BACKGROUND_COLOR))
         self.eraser.grid(row=0,
                          column=BUTTON_START_POSITION,
-                         sticky="NSWE")
+                         sticky="NSEW")
 
         # set up color selection buttons
         for column_pos, color in enumerate(COLORS, start=BUTTON_START_POSITION + 1):

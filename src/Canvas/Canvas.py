@@ -1,14 +1,16 @@
 import tkinter as tk
 import math
 from src.Settings.Settings import COLOR
+from src.Frames.CanvasFrame.CanvasFrame import CanvasFrame
 
 
 class PaintCanvas(tk.Canvas):
 
-    def __init__(self, master: tk.Tk, bg: str, size: str) -> None:
+    def __init__(self, master: CanvasFrame, bg: str, size: str, **kwargs) -> None:
 
         super().__init__(master=master,
-                         bg=bg)
+                         bg=bg,
+                         **kwargs)
 
         self.color = None
         self.set_new_color()
