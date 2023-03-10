@@ -1,5 +1,6 @@
 import sys
 import tkinter as tk
+import tkmacosx as tkos
 from tkinter import filedialog
 from src.Canvas.Canvas import PaintCanvas
 from src.Settings.Settings import COLORS, BACKGROUND_COLOR, BUTTON_START_POSITION
@@ -12,28 +13,28 @@ class ButtonFrame(tk.Frame):
         self.size = initial_size
         self.paint_canvas = None
 
-        self.quit_button = tk.Button(master=self,
+        self.quit_button = tkos.Button(master=self,
                                      text="Quit",
                                      command=lambda: sys.exit())
         self.quit_button.grid(row=0,
                               column=0,
                               sticky="NSWE")
 
-        self.save_button = tk.Button(master=self,
+        self.save_button = tkos.Button(master=self,
                                      text="Save img",
                                      command= lambda: self.save_file())
         self.save_button.grid(row=0,
                               column=1,
                               sticky="NSEW")
 
-        self.clear_button = tk.Button(master=self,
+        self.clear_button = tkos.Button(master=self,
                                       text="Clear painting",
                                       command=lambda: self.paint_canvas.clear_canvas())
         self.clear_button.grid(row=0,
                                column=2,
                                sticky="NSEW")
 
-        self.undo_button = tk.Button(master=self,
+        self.undo_button = tkos.Button(master=self,
                                      text="Undo last step",
                                      command=lambda: self.paint_canvas.undo_last_step())
         self.undo_button.grid(row=0,
@@ -59,7 +60,7 @@ class ButtonFrame(tk.Frame):
 
         # set up color selection buttons
         for column_pos, color in enumerate(COLORS, start=BUTTON_START_POSITION + 1):
-            tk.Button(master=self,
+            tkos.Button(master=self,
                       bg=color,
                       command=lambda color=color: self.select_color(color=color)).grid(row=0,
                                                                                        column=column_pos,
