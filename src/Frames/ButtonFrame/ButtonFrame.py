@@ -1,4 +1,6 @@
+import sys
 import tkinter as tk
+from tkinter import filedialog
 from src.Canvas.Canvas import PaintCanvas
 from src.Settings.Settings import COLORS, BACKGROUND_COLOR, BUTTON_START_POSITION
 
@@ -9,18 +11,33 @@ class ButtonFrame(tk.Frame):
         super().__init__(master=master, **kwargs)
         self.size = initial_size
         self.paint_canvas = None
+
+        self.quit_button = tk.Button(master=self,
+                                     text="Quit",
+                                     command=lambda: sys.exit())
+        self.quit_button.grid(row=0,
+                              column=0,
+                              sticky="NSWE")
+
+        self.save_button = tk.Button(master=self,
+                                     text="Save img",
+                                     command= lambda: self.save_file())
+        self.save_button.grid(row=0,
+                              column=1,
+                              sticky="NSEW")
+
         self.clear_button = tk.Button(master=self,
                                       text="Clear painting",
                                       command=lambda: self.paint_canvas.clear_canvas())
         self.clear_button.grid(row=0,
-                               column=1,
+                               column=2,
                                sticky="NSEW")
 
         self.undo_button = tk.Button(master=self,
                                      text="Undo last step",
                                      command=lambda: self.paint_canvas.undo_last_step())
         self.undo_button.grid(row=0,
-                              column=2,
+                              column=3,
                               sticky="NSEW")
 
         values = [str(value) for value in range(1, 21)]
@@ -30,7 +47,7 @@ class ButtonFrame(tk.Frame):
                                             *values,
                                             command=lambda x: self.set_size_value())
         self.size_selection.grid(row=0,
-                                 column=3,
+                                 column=4,
                                  sticky="NSEW")
 
         self.eraser = tk.Button(master=self,
@@ -47,6 +64,11 @@ class ButtonFrame(tk.Frame):
                       command=lambda color=color: self.select_color(color=color)).grid(row=0,
                                                                                        column=column_pos,
                                                                                        sticky="NSWE")
+
+    def save_file(self) -> None:
+        filename = filedialog.asksaveasfilename()
+
+        self.paint_canvas.save_as_file(filename)
 
     def set_canvas(self, paint_canvas: PaintCanvas) -> None:
 

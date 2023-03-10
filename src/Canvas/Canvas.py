@@ -1,7 +1,8 @@
 import tkinter as tk
 import math
-from src.Settings.Settings import COLOR
+from src.Settings.Settings import get_initial_color
 from src.Frames.CanvasFrame.CanvasFrame import CanvasFrame
+from PIL import ImageGrab
 
 
 class PaintCanvas(tk.Canvas):
@@ -17,6 +18,14 @@ class PaintCanvas(tk.Canvas):
         self.size = int(size)
         self.bind("<B1-Motion>", self.left_click)
         self.stack: list[int] = []
+
+    def save_as_file(self, filepath: str) -> None:
+        image_size = (self.winfo_rootx(),
+                      self.winfo_rooty(),
+                      self.winfo_rootx() + self.winfo_width(),
+                      self.winfo_rooty() + self.winfo_height())
+        filepath = filepath + ".png"
+        ImageGrab.grab(bbox=image_size).save(filepath)
 
     def left_click(self, event) -> None:
 
@@ -51,12 +60,6 @@ class PaintCanvas(tk.Canvas):
         else:
             print("Nothing to be undone...")
 
-    @staticmethod
-    def get_current_color() -> str:
-
-        """Returns the color value which is stored within the color variable in the settings as initial value."""
-
-        return COLOR
 
     def set_new_color(self, color: str = None) -> None:
 
@@ -69,7 +72,7 @@ class PaintCanvas(tk.Canvas):
         """
 
         if color is None:
-            self.color = self.get_current_color()
+            self.color = get_initial_color()
 
         else:
             self.color = color

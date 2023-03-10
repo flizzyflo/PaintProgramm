@@ -14,18 +14,22 @@ if __name__ == '__main__':
                      relief="groove",
                      borderwidth=BUTTON_FRAME_BORDER_SIZE)
     bf.pack(fill=tk.X,
-            expand=True)
+            expand=True,
+            anchor="n")
 
     canvas_frame = CanvasFrame(master=root,
                                relief="groove",
                                borderwidth=CANVAS_FRAME_BORDER_SIZE)
-    canvas_frame.pack(fill=tk.X,
-                      expand=True)
+    canvas_frame.pack(fill=tk.BOTH,
+                      expand=True,
+                      anchor="n")
 
     cv = PaintCanvas(master=canvas_frame,
                      bg=BACKGROUND_COLOR,
                      size=INITIAL_SIZE)
     bf.set_canvas(cv)
-    cv.pack(fill=tk.X)
+    cv.pack(fill=tk.BOTH,
+            expand=True,
+            anchor="n")
 
     root.mainloop()
